@@ -57,26 +57,32 @@ function Login () {
           <div>
             <h1>Login</h1>
           </div>
-          <label>
-            username:
-            <input
-              type='text'
-              placeholder='username'
-              name='username'
-              onChange={handleUsernameChange}
-            />
-          </label>
-          <label>
-            password:
-            <input
-              type='password'
-              placeholder='password'
-              name='password'
-              onChange={handlePasswordChange}
-            />
-          </label>
+          <div>
+            <label>
+              username:
+              <input
+                type='text'
+                placeholder='username'
+                name='username'
+                onChange={handleUsernameChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              password:
+              <input
+                type='password'
+                placeholder='password'
+                name='password'
+                onChange={handlePasswordChange}
+              />
+            </label>
+          </div>
           <button>log in</button>
-          <span><Link to='/register'>Create account</Link></span>
+          <div>
+            <span><Link to='/register'>Create account</Link></span>
+          </div>
         </form>
       </div>
     </>

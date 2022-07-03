@@ -1,6 +1,15 @@
+import Rooms from '../../components/Rooms'
 
 function Home () {
-  return <h1>home</h1>
+  return (
+    <>
+      <div>
+        <diV>
+          <Rooms />
+        </diV>
+      </div>
+    </>
+  )
 }
 
 export default Home

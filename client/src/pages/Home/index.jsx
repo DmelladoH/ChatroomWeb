@@ -4,9 +4,9 @@ function Home () {
   return (
     <>
       <div>
-        <diV>
+        <div>
           <Rooms />
-        </diV>
+        </div>
       </div>
     </>
   )

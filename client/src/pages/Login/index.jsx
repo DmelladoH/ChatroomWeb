@@ -1,18 +1,14 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+
 import { useNavigate, useLocation } from 'react-router'
 
 import useUser from '../../hooks/useUser'
-
+import LoginForm from '../../components/LoginForm'
 function Login () {
   const { login, isLogged } = useUser()
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [userName, setUserName] = useState('')
-  const [password, setPassword] = useState('')
-
-  const validateForm = () => {
+  const validateForm = ({ userName, password }) => {
     if (userName === '') {
       console.log('name is required')
       return false
@@ -26,18 +22,8 @@ function Login () {
     return true
   }
 
-  const handleUsernameChange = (event) => {
-    setUserName(event.target.value)
-  }
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
-    if (validateForm()) {
+  const handleSubmit = ({ userName, password }) => {
+    if (validateForm({ userName, password })) {
       login({ userName, password })
     }
 
@@ -52,39 +38,7 @@ function Login () {
 
   return (
     <>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <h1>Login</h1>
-          </div>
-          <div>
-            <label>
-              username:
-              <input
-                type='text'
-                placeholder='username'
-                name='username'
-                onChange={handleUsernameChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              password:
-              <input
-                type='password'
-                placeholder='password'
-                name='password'
-                onChange={handlePasswordChange}
-              />
-            </label>
-          </div>
-          <button>log in</button>
-          <div>
-            <span><Link to='/register'>Create account</Link></span>
-          </div>
-        </form>
-      </div>
+      <LoginForm onSubmit={handleSubmit} />
     </>
   )
 }

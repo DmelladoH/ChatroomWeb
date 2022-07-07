@@ -23,7 +23,6 @@ beforeEach(async () => {
   await Message.deleteMany({})
 
   await saveInitialUsers()
-  // const usersDB = await User.find({})
   const users = await User.find({})
   const user = users[0]
 
@@ -47,6 +46,9 @@ beforeEach(async () => {
     messageObj.sender = user.id
 
     room.messages = room.messages.concat(messageObj.id)
+
+    await room.save()
+    await messageObj.save()
   }
 })
 
@@ -71,10 +73,11 @@ describe('GET / getting', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
+    console.log(initialMessages[0])
     expect(response.body).toHaveLength(initialMessages.length)
     expect(response.body[0].message).toBe(initialMessages[0].message)
-    expect(response.body[0].room).toBe(firstUser.id)
-    expect(response.body[0].sender).toBe(initialMessages[0].sender)
+    expect(response.body[0].room).toBe(firstRoom.id.toString())
+    expect(response.body[0].sender).toBe(firstUser.id.toString())
   })
 
   test('an error when no authorized user', async () => {
@@ -106,8 +109,7 @@ describe('GET / getting', () => {
       .set({ authorization: 'bearer ' + token })
       .expect(404)
   })
-
-  test('an error when the user is not subscribed to the room', async () => {
+  test('an error when the user is not subscribed to the room, testCase02', async () => {
     const roomDB = await getAllRooms()
     const userDB = await getAllUsers()
 

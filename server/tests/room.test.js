@@ -29,7 +29,7 @@ beforeEach(async () => {
     const roomObj = new Room(room)
 
     roomObj.users = roomObj.users.concat(user.id)
-    user.rooms = user.rooms.concat(roomObj._id)
+    user.rooms = user.rooms.concat(roomObj.id)
 
     await roomObj.save()
     await user.save()

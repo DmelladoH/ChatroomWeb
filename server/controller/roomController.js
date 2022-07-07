@@ -4,9 +4,12 @@ const mongoose = require('mongoose')
 
 const Room = require('../models/Room')
 const User = require('../models/User')
+const Message = require('../models/Message')
+
 const ConflictError = require('../Errors/ConflictError')
 const NotFoundError = require('../Errors/NotFoundError')
 const BadRequestError = require('../Errors/BadRequestError')
+const UnauthorizedError = require('../Errors/UnauthorizedError')
 
 roomRouter.get('/', userExtractor, async (request, response, next) => {
   try {
@@ -19,7 +22,7 @@ roomRouter.get('/', userExtractor, async (request, response, next) => {
 
 roomRouter.get('/:id', userExtractor, async (request, response, next) => {
   const { id } = request.params
-  console.log(id)
+
   try {
     const room = await Room.findById(id)
 
@@ -88,6 +91,53 @@ roomRouter.post('/:id/subscribe', userExtractor, async (request, response, next)
 
   response.status(202)
   response.json({ success: 'subscribed to a room' })
+})
+
+roomRouter.post('/:id/messages', async (request, response, next) => {
+  try {
+    const roomId = request.params.id
+    const { from, message } = request.body
+
+    const newMessage = new Message({
+      message: { text: message },
+      room: roomId,
+      sender: from
+    })
+
+    const savedMessage = await newMessage.save()
+
+    response.status(202)
+    response.json({ success: 'message created' })
+    response.json(savedMessage)
+  } catch (error) {
+    next(error)
+  }
+})
+
+roomRouter.get('/:id/messages', userExtractor, async (request, response, next) => {
+  try {
+    const roomId = request.params.id
+    const { userId } = request
+    console.log(userId)
+
+    const room = await Room.findById(roomId)
+    console.log(room)
+
+    if (room === null) { return next(new NotFoundError('user not found')) }
+
+    if (!room.users.includes(userId)) {
+      return next(new UnauthorizedError('user is not subscribed to this room'))
+    }
+
+    const promises = room.messages.map(msg => Message.findById(msg))
+    const messages = await Promise.all(promises)
+
+    response.status(200)
+
+    response.json(messages)
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = roomRouter

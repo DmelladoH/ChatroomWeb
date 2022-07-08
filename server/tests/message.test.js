@@ -153,20 +153,22 @@ describe('POST / post', () => {
     }
 
     await api
-      .post(`/api/rooms/${room.id}/message`)
+      .post(`/api/rooms/${room.id}/messages`)
       .set({ authorization: 'bearer ' + token })
       .send(newMessage)
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
     const roomDB = await getRoom(room.id)
-    const msg = roomDB.messages.find(msg => msg.message === newMessage.message)
+
+    const promises = roomDB.messages.map(msg => Message.findById(msg))
+    const messages = await Promise.all(promises)
+    const msg = messages.find(msg => msg.message === newMessage.message)
+    expect(roomDB.messages).toHaveLength(numberOfMessages + 1)
 
     expect(msg)
-    expect(numberOfMessages).toHaveLength(roomDB.message.length + 1)
-
-    expect(msg.room).toBe(room.id)
-    expect(msg.sender).toBe(user.id)
+    expect(msg.room.toString()).toBe(room.id.toString())
+    expect(msg.sender.toString()).toBe(user.id.toString())
   })
 
   test('an error when the user is not subscribed to the room', async () => {
@@ -180,15 +182,15 @@ describe('POST / post', () => {
     }
     const userObj = new User(userDb)
 
-    await userObj.save()
+    const savedUser = await userObj.save()
 
     const numberOfMessages = room.messages.length
 
     const userForToken = {
-      id: userObj.id,
-      userName: userObj.userName
+      id: savedUser.id,
+      userName: savedUser.userName
     }
-
+    console.log(userForToken)
     const token = generateTempToken(userForToken)
 
     const newMessage = {
@@ -196,14 +198,14 @@ describe('POST / post', () => {
     }
 
     await api
-      .post(`/api/rooms/${room.id}/message`)
+      .post(`/api/rooms/${room.id}/messages`)
       .set({ authorization: 'bearer ' + token })
       .send(newMessage)
       .expect(401)
       .expect('Content-Type', /application\/json/)
 
     const roomDB = await getRoom(room.id)
-    expect(numberOfMessages).toHaveLength(roomDB.message.length)
+    expect(roomDB.messages).toHaveLength(numberOfMessages)
   })
 
   test('an error when the message body is empty', async () => {
@@ -227,14 +229,14 @@ describe('POST / post', () => {
     }
 
     await api
-      .post(`/api/rooms/${room.id}/message`)
+      .post(`/api/rooms/${room.id}/messages`)
       .set({ authorization: 'bearer ' + token })
       .send(newMessage)
       .expect(400)
       .expect('Content-Type', /application\/json/)
 
     const roomDB = await getRoom(room.id)
-    expect(numberOfMessages).toHaveLength(roomDB.message.length)
+    expect(roomDB.messages).toHaveLength(numberOfMessages)
   })
 
   test('an error when there is no message body', async () => {
@@ -258,14 +260,14 @@ describe('POST / post', () => {
     }
 
     await api
-      .post(`/api/rooms/${room.id}/message`)
+      .post(`/api/rooms/${room.id}/messages`)
       .set({ authorization: 'bearer ' + token })
       .send(newMessage)
       .expect(400)
       .expect('Content-Type', /application\/json/)
 
     const roomDB = await getRoom(room.id)
-    expect(numberOfMessages).toHaveLength(roomDB.message.length)
+    expect(roomDB.messages).toHaveLength(numberOfMessages)
   })
 
   test('an error when no authorized user', async () => {
@@ -287,14 +289,14 @@ describe('POST / post', () => {
     }
 
     await api
-      .post(`/api/rooms/${room.id}/message`)
+      .post(`/api/rooms/${room.id}/messages`)
       .set({ authorization: 'bearer ' + token })
       .send(newMessage)
-      .expect(400)
+      .expect(401)
       .expect('Content-Type', /application\/json/)
 
     const roomDB = await getRoom(room.id)
-    expect(numberOfMessages).toHaveLength(roomDB.message.length)
+    expect(roomDB.messages).toHaveLength(numberOfMessages)
   })
 })
 

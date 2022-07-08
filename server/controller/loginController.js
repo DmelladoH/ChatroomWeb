@@ -27,7 +27,6 @@ loginRouter.post('/', async (request, response) => {
     expiresIn: 60 * 60 * 24 * 7
   })
 
-  console.log(token)
   return response.json({
     userName: user.userName,
     name: user.name,

@@ -16,9 +16,16 @@ userRouter.get('/:id', async (request, response, next) => {
   try {
     const user = await User.findById(id)
 
+    const userResponse = {
+      id: user.id,
+      name: user.name,
+      userName: user.name,
+      room: user.rooms
+    }
+
     if (user === null) { return next(new NotFoundError('user not found')) }
 
-    response.json(user)
+    response.json(userResponse)
   } catch (err) {
     next(err)
   }

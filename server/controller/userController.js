@@ -10,27 +10,6 @@ userRouter.get('/', async (request, response) => {
   response.json(user)
 })
 
-userRouter.get('/:id', async (request, response, next) => {
-  const { id } = request.params
-
-  try {
-    const user = await User.findById(id)
-
-    const userResponse = {
-      id: user.id,
-      name: user.name,
-      userName: user.name,
-      room: user.rooms
-    }
-
-    if (user === null) { return next(new NotFoundError('user not found')) }
-
-    response.json(userResponse)
-  } catch (err) {
-    next(err)
-  }
-})
-
 userRouter.post('/', async (request, response, next) => {
   const body = request.body
   const saltRounds = 10
@@ -53,6 +32,27 @@ userRouter.post('/', async (request, response, next) => {
     const savedUser = await newUser.save()
     response.status(201)
     response.json(savedUser)
+  } catch (err) {
+    next(err)
+  }
+})
+
+userRouter.get('/:id', async (request, response, next) => {
+  const { id } = request.params
+
+  try {
+    const user = await User.findById(id)
+
+    if (user === null) { return next(new NotFoundError('user not found')) }
+
+    const userResponse = {
+      id: user.id,
+      name: user.name,
+      userName: user.userName,
+      room: user.rooms
+    }
+
+    response.json(userResponse)
   } catch (err) {
     next(err)
   }

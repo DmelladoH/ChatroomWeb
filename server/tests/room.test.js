@@ -21,7 +21,7 @@ beforeEach(async () => {
   await Room.deleteMany({})
 
   await saveInitialUsers()
-  // const usersDB = await User.find({})
+
   const users = await User.find({})
   const user = users[0]
 
@@ -64,6 +64,7 @@ describe('GET / getting', () => {
       .set({ authorization: 'bearer ' + token })
       .expect(401)
   })
+
   test('a room when the id is valid and the user user is authorized', async () => {
     const roomDB = await getAllRooms()
     const firstRoom = roomDB[0]

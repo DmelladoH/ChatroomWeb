@@ -1,18 +1,37 @@
 const mongoose = require('mongoose')
 const { server } = require('../index')
+
 const User = require('../models/User')
+const Room = require('../models/Room')
 
 const {
   initialUsers,
+  initialRooms,
   api,
   getAllUsers,
+  getAllRooms,
   saveInitialUsers,
   generateTempToken
 } = require('./helpers')
 
 beforeEach(async () => {
   await User.deleteMany({})
+  await Room.deleteMany({})
+
   await saveInitialUsers()
+
+  const users = await User.find({})
+  const user = users[0]
+
+  for (const room of initialRooms) {
+    const roomObj = new Room(room)
+
+    roomObj.users = roomObj.users.concat(user.id)
+    user.rooms = user.rooms.concat(roomObj.id)
+
+    await roomObj.save()
+    await user.save()
+  }
 })
 
 describe('GET / getting', () => {
@@ -49,6 +68,40 @@ describe('GET / getting', () => {
       .get(`/api/users/${invalidId}`)
       .expect(404)
       .expect('Content-Type', /application\/json/)
+  })
+
+  test('users rooms, rooms that a user is suspended to', async () => {
+    const userDB = await getAllUsers()
+    const firstUser = userDB[0]
+
+    const roomDB = await getAllRooms()
+    const subcribedRoom1 = roomDB[0]
+    const subcribedRoom2 = roomDB[1]
+    const rooms = [subcribedRoom1.id.toString(), subcribedRoom2.id.toString()]
+    const userForToken = {
+      id: firstUser.id,
+      userName: firstUser.userName
+    }
+
+    const room = new Room({
+      name: 'room',
+      users: []
+    })
+
+    await room.save()
+
+    const token = generateTempToken(userForToken)
+
+    const response = await api
+      .get('/api/users/room/subscribed')
+      .expect(200)
+      .set({ authorization: 'bearer ' + token })
+      .expect('Content-Type', /application\/json/)
+
+    expect(['wool', 'down'].sort()).toEqual(['down', 'wool'].sort())
+
+    expect(response.body.sort()).toEqual(rooms.sort())
+    expect(response.body).not.toContain(room)
   })
 })
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest  --verbose  --runInBand --forceExit",
+    "test": "cross-env NODE_ENV=test jest --silent --runInBand --forceExit",
     "start": "node index.js",
     "dev": "nodemon install.js"
   },

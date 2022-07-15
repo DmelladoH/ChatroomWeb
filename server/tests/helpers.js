@@ -32,6 +32,19 @@ const initialRooms = [
   }
 ]
 
+const initialMessages = [
+  {
+    message: 'first message',
+    room: undefined,
+    sender: undefined
+  },
+  {
+    message: 'second message',
+    room: undefined,
+    sender: undefined
+  }
+]
+
 const saveInitialUsers = async () => {
   for (const user of initialUsers) {
     const userDb = {
@@ -73,4 +86,4 @@ const getRoom = async (id) => {
   return roomDB.map(room => room.toJSON())[0]
 }
 
-module.exports = { api, initialUsers, initialRooms, saveInitialUsers, getAllUsers, getAllRooms, getUser, getRoom, generateTempToken }
+module.exports = { api, initialUsers, initialRooms, initialMessages, saveInitialUsers, getAllUsers, getAllRooms, getUser, getRoom, generateTempToken }

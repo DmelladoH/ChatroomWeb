@@ -1,5 +1,6 @@
 
 import { useNavigate, useLocation } from 'react-router'
+import { useEffect } from 'react'
 
 import useUser from '../../hooks/useUser'
 import LoginForm from '../../components/LoginForm'
@@ -22,17 +23,19 @@ function Login () {
     return true
   }
 
-  const handleSubmit = ({ userName, password }) => {
-    if (validateForm({ userName, password })) {
-      login({ userName, password })
-    }
-
+  useEffect(() => {
     if (isLogged) {
       if (location.state?.from) {
         navigate(location.state.from)
       } else {
         navigate('/')
       }
+    }
+  }, [isLogged, navigate])
+
+  const handleSubmit = ({ userName, password }) => {
+    if (validateForm({ userName, password })) {
+      login({ userName, password })
     }
   }
 

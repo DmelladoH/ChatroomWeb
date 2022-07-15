@@ -113,7 +113,7 @@ describe('POST / a new User', () => {
       password: '123'
     }
 
-    const response = await api
+    await api
       .post('/api/users')
       .send(newInvalidUser)
       .expect(400)
@@ -121,7 +121,6 @@ describe('POST / a new User', () => {
 
     const usersDB = await getAllUsers()
     expect(usersDB).toHaveLength(initialUsers.length)
-    console.log(response.body.errors)
   })
 
   test('is not created without the password field', async () => {

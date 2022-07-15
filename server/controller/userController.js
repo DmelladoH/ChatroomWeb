@@ -69,13 +69,14 @@ userRouter.delete('/:id', async (request, response, next) => {
   }
 })
 
-userRouter.get('/subscribed', userExtractor, async (request, response, next) => {
+userRouter.get('/room/subscribed', userExtractor, async (request, response, next) => {
   const { userId } = request
 
   const user = await User.findById(userId)
 
+  console.log({ user })
   response.status(200)
-  response.json(user.room)
+  response.json(user.rooms)
 })
 
 userRouter.put('/changePassword', userExtractor, async (request, response, next) => {

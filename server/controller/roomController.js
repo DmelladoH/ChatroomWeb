@@ -125,12 +125,13 @@ roomRouter.get('/:id/messages', userExtractor, async (request, response, next) =
 
     const room = await Room.findById(roomId)
 
-    if (room === null) { return next(new NotFoundError('user not found')) }
+    if (room === null) { return next(new NotFoundError('room not found')) }
 
     if (!room.users.includes(userId)) {
       return next(new UnauthorizedError('user is not subscribed to this room'))
     }
 
+    console.log(room.messages)
     const promises = room.messages.map(msg => Message.findById(msg))
     const messages = await Promise.all(promises)
 

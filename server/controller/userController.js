@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const User = require('../models/User')
 const ConflictError = require('../Errors/ConflictError')
 const NotFoundError = require('../Errors/NotFoundError')
+const userExtractor = require('../middleware/userExtractor')
 
 userRouter.get('/', async (request, response) => {
   const user = await User.find({})
@@ -68,8 +69,18 @@ userRouter.delete('/:id', async (request, response, next) => {
   }
 })
 
-userRouter.put('/:id/changePassword', async (request, response, next) => {
-  const mid = mongoose.Types.ObjectId(request.params)
+userRouter.get('/subscribed', userExtractor, async (request, response, next) => {
+  const { userId } = request
+
+  const user = await User.findById(userId)
+
+  response.status(200)
+  response.json(user.room)
+})
+
+userRouter.put('/changePassword', userExtractor, async (request, response, next) => {
+  const { userId } = request
+  const mid = mongoose.Types.ObjectId(userId)
 
   try {
     const newPasswordHash = await bcrypt.hash(request.body.newPassword, 10)
@@ -80,8 +91,9 @@ userRouter.put('/:id/changePassword', async (request, response, next) => {
   }
 })
 
-userRouter.put('/:id/changeName', async (request, response, next) => {
-  const mid = mongoose.Types.ObjectId(request.params)
+userRouter.put('/changeName', userExtractor, async (request, response, next) => {
+  const { userId } = request
+  const mid = mongoose.Types.ObjectId(userId)
 
   try {
     const user = await User.findByIdAndUpdate({ _id: mid }, { name: request.body.newName })
@@ -90,4 +102,5 @@ userRouter.put('/:id/changeName', async (request, response, next) => {
     next(err)
   }
 })
+
 module.exports = userRouter

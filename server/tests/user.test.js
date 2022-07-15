@@ -6,7 +6,8 @@ const {
   initialUsers,
   api,
   getAllUsers,
-  saveInitialUsers
+  saveInitialUsers,
+  generateTempToken
 } = require('./helpers')
 
 beforeEach(async () => {
@@ -203,8 +204,13 @@ describe('PUT / Upgrading a users ', () => {
   test('when the password is changed', async () => {
     const usersDB = await getAllUsers()
     const userToUpdate = usersDB[0]
-
     const userName = userToUpdate.userName
+
+    const userForToken = {
+      id: userToUpdate.id,
+      userName: userToUpdate.userName
+    }
+    const token = generateTempToken(userForToken)
 
     const newUser = {
       newPassword: 'newPassword'
@@ -214,7 +220,8 @@ describe('PUT / Upgrading a users ', () => {
     const oldPassword = oldUserDB[0].password
 
     await api
-      .put(`/api/users/${userToUpdate.id}/changePassword`)
+      .put('/api/users/changePassword')
+      .set({ authorization: 'bearer ' + token })
       .send(newUser)
       .expect(200)
 
@@ -228,6 +235,12 @@ describe('PUT / Upgrading a users ', () => {
 
     const userName = userToUpdate.userName
 
+    const userForToken = {
+      id: userToUpdate.id,
+      userName: userToUpdate.userName
+    }
+    const token = generateTempToken(userForToken)
+
     const updatedFields = {
       newName: 'newName'
     }
@@ -236,7 +249,8 @@ describe('PUT / Upgrading a users ', () => {
     const oldName = oldUserDB[0].name
 
     await api
-      .put(`/api/users/${userToUpdate.id}/changeName`)
+      .put('/api/users/changeName')
+      .set({ authorization: 'bearer ' + token })
       .send(updatedFields)
       .expect(200)
 

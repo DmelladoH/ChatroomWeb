@@ -1,29 +1,36 @@
 import { useCallback, useContext } from 'react'
+
 import Context from '../context/UserContextProvider'
 import loginService from '../server/loginService'
+// import UserService from '../server/UserService'
 
 function useUser () {
-  const { jwt, setJwt } = useContext(Context)
+  const { jwt, setJwt, user, setUser } = useContext(Context)
 
   const login = useCallback(({ userName, password }) => {
     loginService({ userName, password })
       .then(data => {
         const jwt = data.token
+        const id = data.id
+
+        console.log(id)
+        setUser(id)
 
         window.sessionStorage.setItem('jwt', jwt)
+        window.sessionStorage.setItem('user', id)
         setJwt(jwt)
       }).catch(error => {
         window.sessionStorage.removeItem('jwt')
         console.error(error)
       })
-  }, [setJwt])
+  }, [setJwt, setUser])
 
   const logout = useCallback(() => {
     window.sessionStorage.removeItem('jwt')
     setJwt(null)
   }, [setJwt])
 
-  return { login, logout, isLogged: Boolean(jwt) }
+  return { login, logout, user, isLogged: Boolean(jwt) }
 }
 
 export default useUser

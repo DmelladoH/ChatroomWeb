@@ -73,7 +73,6 @@ describe('GET / getting', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
-    console.log(initialMessages[0])
     expect(response.body).toHaveLength(initialMessages.length)
     expect(response.body[0].message).toBe(initialMessages[0].message)
     expect(response.body[0].room).toBe(firstRoom.id.toString())

@@ -23,12 +23,12 @@ const getRooms = () => {
 }
 
 const getUsersRooms = () => {
-  const request = axios.get(baseUrl, config)
+  const request = axios.get('http://localhost:3001/api/users/room/subscribed', config)
   return request.then(response => response.data)
 }
 
 const subscribe = async (roomId) => {
-  const request = axios.post(baseUrl + 'roomId' + '/subscribe', config)
+  const request = axios.post(`${baseUrl}/${roomId}/subscribe`, config)
   return request.then(response => response.data)
 }
 

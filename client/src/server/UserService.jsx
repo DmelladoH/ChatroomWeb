@@ -6,4 +6,10 @@ const createAccountService = async (userData) => {
   return data
 }
 
-export default createAccountService
+const getUser = async (id) => {
+  const { data } = await axios.get(`${baseUrl}/${id}`)
+  console.log({ data })
+  return data
+}
+
+export default { createAccountService, getUser }

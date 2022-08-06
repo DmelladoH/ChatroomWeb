@@ -1,7 +1,10 @@
 const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
 const mongoose = require('mongoose')
+
 const User = require('../models/User')
+const Room = require('../models/Room')
+
 const ConflictError = require('../Errors/ConflictError')
 const NotFoundError = require('../Errors/NotFoundError')
 const userExtractor = require('../middleware/userExtractor')
@@ -74,9 +77,19 @@ userRouter.get('/room/subscribed', userExtractor, async (request, response, next
 
   const user = await User.findById(userId)
 
-  console.log({ user })
+  const roomsId = user.rooms
+  // const rooms = []
+
+  const promeses = roomsId.map(async id => {
+    const room = await Room.findById(id)
+    console.log(room)
+    return room
+  })
+
+  const rooms = await Promise.all(promeses)
+  console.log({ rooms })
   response.status(200)
-  response.json(user.rooms)
+  response.json(rooms)
 })
 
 userRouter.put('/changePassword', userExtractor, async (request, response, next) => {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import createAccount from '../../server/createAccount'
+import UserService from '../../server/UserService'
 import RegistrationForm from '../../components/RegistrationForm'
 
 function register () {
@@ -27,7 +27,7 @@ function register () {
 
   const handleSubmit = ({ name, userName, password }) => {
     if (validateForm({ name, userName, password })) {
-      createAccount({ name, userName, password })
+      UserService.createAccount({ name, userName, password })
         .then(setRegister(true))
     }
   }

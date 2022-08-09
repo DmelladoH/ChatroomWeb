@@ -13,7 +13,7 @@ const roomRouter = require('./controller/roomController')
 const handleError = require('./middleware/handleError')
 const notFound = require('./middleware/notFound')
 
-const User = require('./models/User')
+// const User = require('./models/User')
 // const Room = require('./models/Room')
 
 const app = express()
@@ -48,22 +48,22 @@ const io = require('socket.io')(server, {
 })
 
 io.on('connection', (socket) => {
-  socket.on('join', ({ user, room }) => {
+  socket.on('join', ({ sender, room }) => {
     console.log('user joined to ', room)
     socket.join(room)
 
-    socket.emit('message', { user, text: `Welcome ${user} to ${room}` })
-    socket.broadcast.to(room).emit('message', { user, text: ` ${user} joined ${room}` })
+    socket.emit('message', { sender, message: `Welcome ${sender} to ${room}` })
+    socket.broadcast.to(room).emit('message', { sender, message: ` ${sender} joined ${room}` })
   })
 
   socket.on('sendMessage', async ({ message, room, user }) => {
-    console.log({ message })
-    console.log({ room })
-    console.log({ user })
-    const userdb = await User.findById(user)
-    console.log({ userdb })
+    const obj = {
+      message,
+      room,
+      sender: user
+    }
 
-    io.to(room).emit('message', { user, text: message })
+    io.to(room).emit('message', obj)
   })
 })
 

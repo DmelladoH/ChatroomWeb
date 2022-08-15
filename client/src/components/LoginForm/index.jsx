@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import styles from './loginForm.module.css'
+
 export default function LoginForm ({ onSubmit }) {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
@@ -18,40 +20,38 @@ export default function LoginForm ({ onSubmit }) {
     onSubmit({ userName, password })
   }
   return (
-    <>
-      <div>
+    <div className='container'>
+      <div className={styles.container}>
         <form onSubmit={hundleSubmit}>
           <div>
             <h1>Login</h1>
           </div>
           <div>
-            <label>
-              username:
-              <input
-                type='text'
-                placeholder='username'
-                name='username'
-                onChange={handleUsernameChange}
-              />
-            </label>
+            <input
+              className={styles.authInput}
+              type='text'
+              placeholder='username'
+              name='username'
+              onChange={handleUsernameChange}
+            />
+
           </div>
           <div>
-            <label>
-              password:
-              <input
-                type='password'
-                placeholder='password'
-                name='password'
-                onChange={handlePasswordChange}
-              />
-            </label>
+            <input
+              className={styles.authInput}
+              type='password'
+              placeholder='password'
+              name='password'
+              onChange={handlePasswordChange}
+            />
+
           </div>
-          <button>log in</button>
-          <div>
-            <span><Link to='/register'>Create account</Link></span>
+          <button className={styles.btn}>log in</button>
+          <div className={styles.linkContainer}>
+            <span>Don't have an account? <Link className={styles.link} to='/register'>Create</Link></span>
           </div>
         </form>
       </div>
-    </>
+    </div>
   )
 }

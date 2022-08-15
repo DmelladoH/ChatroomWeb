@@ -20,7 +20,7 @@ function useRooms () {
     roomsService.getUsersRooms()
       .then(rooms =>
         setRooms(rooms))
-  }, [])
+  }, [jwt])
 
   return { rooms, addRoom, subscribe }
 }

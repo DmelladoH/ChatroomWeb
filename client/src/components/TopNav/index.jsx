@@ -1,16 +1,16 @@
-import './TopNav.css'
+import styles from './TopNav.module.css'
 
 export default function TopNav () {
   return (
-    <header>
-      <div className='container'>
-        <div className='logo-container'>
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <div className={styles.logoContainer}>
           <h1>logo</h1>
         </div>
-        <div className='searchBar-container'>
+        <div className={styles.searchBarContainer}>
           buscador
         </div>
-        <div className='user-container'>
+        <div className={styles.userContainer}>
           user
         </div>
       </div>

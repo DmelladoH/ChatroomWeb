@@ -7,13 +7,13 @@ import Chatroom from './pages/Chatroom'
 import Home from './pages/Home'
 import Register from './pages/Register'
 
-import useUser from './hooks/useUser'
+import useLogin from './hooks/useLogin'
 import { UserContextProvider } from './context/UserContextProvider'
 import RoomsNav from './components/RoomsNav'
 import TopNav from './components/TopNav'
 
 const PortectedRoutes = () => {
-  const { isLogged } = useUser()
+  const { isLogged } = useLogin()
   const location = useLocation()
   return isLogged
     ? (

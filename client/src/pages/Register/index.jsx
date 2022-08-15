@@ -1,7 +1,9 @@
 import { useState } from 'react'
 
-import createAccount from '../../server/createAccount'
+import UserService from '../../server/UserService'
 import RegistrationForm from '../../components/RegistrationForm'
+
+import styles from './register.module.css'
 
 function register () {
   const [register, setRegister] = useState(false)
@@ -27,7 +29,7 @@ function register () {
 
   const handleSubmit = ({ name, userName, password }) => {
     if (validateForm({ name, userName, password })) {
-      createAccount({ name, userName, password })
+      UserService.createAccount({ name, userName, password })
         .then(setRegister(true))
     }
   }
@@ -37,9 +39,9 @@ function register () {
   }
 
   return (
-    <>
+    <div className={styles.container}>
       <RegistrationForm onSubmit={handleSubmit} />
-    </>
+    </div>
   )
 }
 

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import styles from './registrationForm.module.css'
+
 export default function RegistrationForm ({ onSubmit }) {
   const [name, setName] = useState('')
   const [userName, setUserName] = useState('')
@@ -25,47 +27,41 @@ export default function RegistrationForm ({ onSubmit }) {
 
   return (
     <>
-      <div>
+      <div className={styles.container}>
         <form onSubmit={handleSubmit}>
           <div>
-            <h1>Create account</h1>
+            <h1>Create</h1>
           </div>
           <div>
-            <label>
-              name:
-              <input
-                type='text'
-                name='name'
-                placeholder='name'
-                onChange={handleNameChange}
-              />
-            </label>
+            <input
+              className={styles.authInput}
+              type='text'
+              name='name'
+              placeholder='name'
+              onChange={handleNameChange}
+            />
           </div>
           <div>
-            <label>
-              username:
-              <input
-                type='text'
-                name='username'
-                placeholder='username'
-                onChange={handleUsernameChange}
-              />
-            </label>
+            <input
+              className={styles.authInput}
+              type='text'
+              name='username'
+              placeholder='username'
+              onChange={handleUsernameChange}
+            />
           </div>
           <div>
-            <label>
-              password:
-              <input
-                type='password'
-                name='password'
-                placeholder='password'
-                onChange={handlePasswordChange}
-              />
-            </label>
+            <input
+              className={styles.authInput}
+              type='password'
+              name='password'
+              placeholder='password'
+              onChange={handlePasswordChange}
+            />
           </div>
-          <button>Create</button>
-          <div>
-            <span><Link to='/login'>log in</Link></span>
+          <button className={styles.btn}>Create</button>
+          <div className={styles.linkContainer}>
+            <span>Do you have an account? <Link className={styles.link} to='/login'>log in</Link></span>
           </div>
         </form>
       </div>

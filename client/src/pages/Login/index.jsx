@@ -2,10 +2,13 @@
 import { useNavigate, useLocation } from 'react-router'
 import { useEffect } from 'react'
 
-import useUser from '../../hooks/useUser'
+import useLogin from '../../hooks/useLogin'
 import LoginForm from '../../components/LoginForm'
+
+import styles from './login.module.css'
+
 function Login () {
-  const { login, isLogged } = useUser()
+  const { login, isLogged } = useLogin()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -40,9 +43,9 @@ function Login () {
   }
 
   return (
-    <>
+    <div className={styles.container}>
       <LoginForm onSubmit={handleSubmit} />
-    </>
+    </div>
   )
 }
 

@@ -1,0 +1,18 @@
+.message-container {
+    border: solid;
+    border-radius: 30px;
+}
+
+.yourMessage {
+    background-color: greenyellow;
+}
+
+.messageSender {
+    text-align: left;
+}
+.messageBody{
+    text-align: right;
+}
+.othersMessage {
+    background-color:grey;
+}

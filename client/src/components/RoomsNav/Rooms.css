@@ -1,0 +1,21 @@
+
+nav {
+    float: left;
+    width:30%;
+    height: 100%;
+    background: #ccc;
+    padding: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 1;
+    text-align: left;
+}
+
+/* @media (max-width: 600px) {
+    nav, article {
+      width: 100%;
+      height: auto;
+    }
+  } */

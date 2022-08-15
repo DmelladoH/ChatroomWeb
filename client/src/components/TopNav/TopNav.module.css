@@ -1,0 +1,24 @@
+.header {
+    background: var(--lightgreen);
+}
+
+.container {
+  margin: 0 auto;
+  width: 80%;
+  height: 65px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} 
+
+.logoContainer{
+  color: black;
+}
+
+.header::after {
+  content: "";
+  display: table;
+  clear: both;
+  padding: 0
+}
+  

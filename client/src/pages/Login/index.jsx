@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 import useLogin from '../../hooks/useLogin'
 import LoginForm from '../../components/LoginForm'
 
+import styles from './login.module.css'
+
 function Login () {
   const { login, isLogged } = useLogin()
   const navigate = useNavigate()
@@ -41,9 +43,9 @@ function Login () {
   }
 
   return (
-    <>
+    <div className={styles.container}>
       <LoginForm onSubmit={handleSubmit} />
-    </>
+    </div>
   )
 }
 

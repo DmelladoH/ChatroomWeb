@@ -3,6 +3,8 @@ import { useState } from 'react'
 import UserService from '../../server/UserService'
 import RegistrationForm from '../../components/RegistrationForm'
 
+import styles from './register.module.css'
+
 function register () {
   const [register, setRegister] = useState(false)
 
@@ -37,9 +39,9 @@ function register () {
   }
 
   return (
-    <>
+    <div className={styles.container}>
       <RegistrationForm onSubmit={handleSubmit} />
-    </>
+    </div>
   )
 }
 

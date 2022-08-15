@@ -20,7 +20,7 @@ export default function LoginForm ({ onSubmit }) {
     onSubmit({ userName, password })
   }
   return (
-    <div className='container'>
+    <>
       <div className={styles.container}>
         <form onSubmit={hundleSubmit}>
           <div>
@@ -52,6 +52,6 @@ export default function LoginForm ({ onSubmit }) {
           </div>
         </form>
       </div>
-    </div>
+    </>
   )
 }

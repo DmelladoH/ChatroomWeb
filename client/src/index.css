@@ -1,8 +1,18 @@
-body {
+:root{
+  --lightgreen: #55d6aa;
+  --black: #171321;
+  --font-size: 1.3rem;
+  --font-Oxygen: Oxygen, sans-serif;
+}
+
+body{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+  background-color: var(--black);
+  font-size: var(--font-size);
+  font-family: var(--font-Oxygen);
+  color: white;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

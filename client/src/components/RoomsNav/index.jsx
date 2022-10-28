@@ -1,6 +1,6 @@
 import useRooms from '../../hooks/useRooms'
 
-import './Rooms.css'
+import styles from './Rooms.module.css'
 import CreateRoomForm from './CreateRoomForm'
 
 export default function RoomsNav () {
@@ -11,8 +11,8 @@ export default function RoomsNav () {
   }
 
   return (
-    <nav>
-      <h1>rooms</h1>
+    <div className={styles.sideMenu}>
+      <h1 className={styles.title}>rooms</h1>
       <ul>
         {
           rooms.map((room) =>
@@ -23,6 +23,6 @@ export default function RoomsNav () {
       <div>
         <CreateRoomForm handleSubmit={handleSubmit} />
       </div>
-    </nav>
+    </div>
   )
 }

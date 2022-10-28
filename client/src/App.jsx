@@ -21,7 +21,9 @@ const PortectedRoutes = () => {
         <TopNav />
         <div style={{ display: 'flex' }}>
           <RoomsNav />
-          <Outlet />
+          <div style={{ width: '100%' }}>
+            <Outlet />
+          </div>
         </div>
       </>
       )

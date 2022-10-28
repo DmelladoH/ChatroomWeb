@@ -11,8 +11,10 @@ export default function Message ({ sender, message }) {
   const yourMessage = user.id === userId
 
   return (
-    <div className={`message-container ${yourMessage ? 'yourMessage' : 'othersMessage'}`}>
-      {
+    <div style={{ display: 'flex', justifyContent: yourMessage ? 'flex-end' : 'flex-start' }}>
+
+      <div className={`message-container ${yourMessage ? 'yourMessage' : 'othersMessage'}`}>
+        {
         !yourMessage
           ? (
             <div className='messageTitle'>
@@ -21,9 +23,11 @@ export default function Message ({ sender, message }) {
             )
           : ' '
       }
-      <div className='messageBody'>
-        <p>{message}</p>
+        <div className='messageBody'>
+          <p>{message}</p>
+        </div>
       </div>
+
     </div>
   )
 }

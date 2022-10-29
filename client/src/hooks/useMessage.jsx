@@ -6,17 +6,17 @@ import messageService from '../server/messageService'
 import socket from '../Utils/Socket'
 
 function useMessage ({ room }) {
-  const { jwt, user } = useContext(Context)
+  const { jwt, userId } = useContext(Context)
   const [messages, setMessages] = useState([])
 
   const postMessage = useCallback(({ message }) => {
     console.log('post message')
-    console.log({ user })
+    console.log({ userId })
     console.log({ message })
 
     messageService.postMessage({ message }, room)
 
-    socket.emit('sendMessage', { message, room, user })
+    socket.emit('sendMessage', { message, room, userId })
   })
 
   // useEffect(() => {

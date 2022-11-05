@@ -8,26 +8,31 @@ export default function Message ({ sender, message }) {
   const { user } = useUser({ id: sender })
   const { userId } = useContext(Context)
 
-  const yourMessage = user.id === userId
+  const isSentByCurrentUser = user.id === userId
 
   return (
-    <div style={{ display: 'flex', justifyContent: yourMessage ? 'flex-end' : 'flex-start' }}>
 
-      <div className={`message-container ${yourMessage ? 'yourMessage' : 'othersMessage'}`}>
-        {
-        !yourMessage
-          ? (
-            <div className='messageTitle'>
+    isSentByCurrentUser
+      ? (
+        <div className='your-message-container'>
+          <div className='your-message'>
+            <div className='message-body'>
+              <p>{message}</p>
+            </div>
+          </div>
+        </div>
+        )
+      : (
+        <div className='other-message-container'>
+          <div className='other-message'>
+            <div className='message-title'>
               <h4>{user.name}</h4>
             </div>
-            )
-          : ' '
-      }
-        <div className='messageBody'>
-          <p>{message}</p>
+            <div className='message-body'>
+              <p>{message}</p>
+            </div>
+          </div>
         </div>
-      </div>
-
-    </div>
+        )
   )
 }

@@ -1,26 +1,43 @@
-.message-container {
+.message-title > h4{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 20px;
+    text-align: left;
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.your-message-container{
+    display: flex;
+    justify-content: flex-end;
+}
+.your-message {
     border: solid;
     border-radius: 30px;
     width: 300px;
     color: black;
     padding: 10px;
-
-}
-
-
-.yourMessage {
+    display:flex;
     background-color: greenyellow;
-    align-self: left;
 }
 
-.messageSender {
-    text-align: left;
+.other-message-container{
+    display: flex;
+    justify-content: flex-start;
 }
 
-.messageBody{
-    text-align: right;
+.other-message-container p {
+    margin-top: 0;
 }
 
-.othersMessage {
-    background-color:grey;
+.other-message {
+    border: solid;
+    border-radius: 30px;
+    width: 300px;
+    color: black;
+    padding: 10px;
+    display:flex;
+    background-color: blanchedalmond;
+    justify-content: left;
+    display: grid;
 }

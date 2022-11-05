@@ -52,15 +52,16 @@ io.on('connection', (socket) => {
     console.log('user joined to ', room)
     socket.join(room)
 
-    socket.emit('message', { sender, message: `Welcome ${sender} to ${room}` })
-    socket.broadcast.to(room).emit('message', { sender, message: ` ${sender} joined ${room}` })
+    // socket.emit('message', { sender, message: `Welcome ${sender} to ${room}` })
+    // socket.broadcast.to(room).emit('message', { sender, message: ` ${sender} joined ${room}` })
   })
 
-  socket.on('sendMessage', async ({ message, room, user }) => {
+  socket.on('sendMessage', async ({ message, room, userId }) => {
+    console.log('message recived: ', message + ' from ' + userId + ' to ' + room)
     const obj = {
       message,
       room,
-      sender: user
+      sender: userId
     }
 
     io.to(room).emit('message', obj)

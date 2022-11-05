@@ -12,21 +12,34 @@ function useMessage ({ room }) {
   const postMessage = useCallback(({ message }) => {
     console.log('post message')
     console.log({ userId })
+    console.log({ room })
     console.log({ message })
 
     messageService.postMessage({ message }, room)
 
+    const newMessage = {
+      message,
+      room,
+      sender: userId
+    }
+    setMessages((prevMessages) => [...prevMessages, newMessage])
+
     socket.emit('sendMessage', { message, room, userId })
   })
 
-  // useEffect(() => {
-  //   socket.emit('join', { user, room })
-  // }, [])
+  useEffect(() => {
+    socket.emit('join', { userId, room })
+  }, [])
 
   useEffect(() => {
     socket.on('message', (socketMessage) => {
+      console.log('message recived')
+      console.log({ socketMessage })
       setMessages((prevMessages) => [...prevMessages, socketMessage])
     })
+    return function cleanup () {
+      socket.removeListener('message')
+    }
   }, [])
 
   useEffect(() => {

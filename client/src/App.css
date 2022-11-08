@@ -1,6 +1,9 @@
 .App {
   text-align: center;
-  display: grid;
+}
+
+.app-container{
+  height: 90vh;
 }
 
 .App-logo {

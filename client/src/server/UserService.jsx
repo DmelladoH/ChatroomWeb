@@ -17,7 +17,7 @@ const setToken = (newToken) => {
   }
 }
 
-const createAccountService = async (userData) => {
+const createAccount = async (userData) => {
   const { data } = await axios.post(baseUrl, userData)
   return data
 }
@@ -27,4 +27,4 @@ const getUser = async (id) => {
   return data
 }
 
-export default { createAccountService, getUser, setToken }
+export default { createAccount, getUser, setToken }

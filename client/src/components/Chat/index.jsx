@@ -1,9 +1,8 @@
 import MessageSendBar from '../MessageSendBar'
 import useMessage from '../../hooks/useMessage'
-import Message from '../Message'
-// import WelcomeMessage from '../WelcomeMessage'
 
 import './Chat.css'
+import MessageList from '../MessageList'
 
 export default function Chat ({ room }) {
   const { postMessage, messages } = useMessage({ room })
@@ -11,29 +10,17 @@ export default function Chat ({ room }) {
   const sendMessage = (message) => {
     postMessage(message)
   }
-  console.log(messages)
   return (
-    <div className='chatContainer'>
-      <div>
+    <div className='chat-container'>
+      <div className='chat-header'>
         <h3>{room}</h3>
       </div>
-      <div>
-        <h5>messages</h5>
-        <ul>
-          {
-          messages.map((msg) =>
-            <Message
-              key={msg.id}
-              sender={msg.sender}
-              message={msg.message}
-            />
-          )
-        }
-        </ul>
+      <div className='chat-body'>
+        <MessageList messages={messages} />
       </div>
-      <div>
+      <footer className='footer-container'>
         <MessageSendBar onSubmitMessage={sendMessage} />
-      </div>
+      </footer>
     </div>
   )
 }

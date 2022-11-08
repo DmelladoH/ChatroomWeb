@@ -17,12 +17,12 @@ function useMessage ({ room }) {
 
     messageService.postMessage({ message }, room)
 
-    const newMessage = {
-      message,
-      room,
-      sender: userId
-    }
-    setMessages((prevMessages) => [...prevMessages, newMessage])
+    // const newMessage = {
+    //   message,
+    //   room,
+    //   sender: userId
+    // }
+    // setMessages((prevMessages) => [...prevMessages, newMessage])
 
     socket.emit('sendMessage', { message, room, userId })
   })

@@ -6,11 +6,7 @@ function Chatroom ({ params }) {
   const { room } = useParams()
   return (
     <>
-      <div>
-        <div>
-          <Chat room={room} />
-        </div>
-      </div>
+      <Chat room={room} />
     </>
   )
 }

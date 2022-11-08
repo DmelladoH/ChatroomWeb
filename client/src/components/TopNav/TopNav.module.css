@@ -1,14 +1,15 @@
 .header {
     background: var(--lightgreen);
+    height: 10vh;
 }
 
 .container {
   margin: 0 auto;
   width: 80%;
-  height: 65px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: inherit
 } 
 
 .logoContainer{

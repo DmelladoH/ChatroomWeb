@@ -19,7 +19,7 @@ const PortectedRoutes = () => {
     ? (
       <>
         <TopNav />
-        <div style={{ display: 'flex' }}>
+        <div className='app-container' style={{ display: 'flex' }}>
           <RoomsNav />
           <div style={{ width: '100%' }}>
             <Outlet />

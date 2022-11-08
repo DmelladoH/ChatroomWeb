@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import { useNavigate } from 'react-router'
 import UserService from '../../server/UserService'
 import RegistrationForm from '../../components/RegistrationForm'
 
@@ -7,6 +7,7 @@ import styles from './register.module.css'
 
 function register () {
   const [register, setRegister] = useState(false)
+  const navigate = useNavigate()
 
   const validateForm = ({ name, userName, password }) => {
     if (name === '') {
@@ -35,7 +36,7 @@ function register () {
   }
 
   if (register) {
-    return <h1>account created</h1>
+    navigate('/')
   }
 
   return (

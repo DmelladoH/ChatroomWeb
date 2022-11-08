@@ -1,0 +1,5 @@
+.messages-container{
+    color: maroon;
+    overflow: scroll;
+    max-height: 100% ;
+}

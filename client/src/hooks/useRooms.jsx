@@ -11,6 +11,9 @@ function useRooms () {
       .then(room => setRooms(rooms.concat(room)))
   })
 
+  const getRoom = (roomId) => {
+    return roomsService.getRoom(roomId)
+  }
   const subscribe = useCallback(({ id }) => {
     roomsService.subscribe(id)
   })
@@ -22,7 +25,7 @@ function useRooms () {
         setRooms(rooms))
   }, [jwt])
 
-  return { rooms, addRoom, subscribe }
+  return { rooms, getRoom, addRoom, subscribe }
 }
 
 export default useRooms

@@ -22,6 +22,11 @@ const getRooms = () => {
   return request.then(response => response.data)
 }
 
+const getRoom = (roomId) => {
+  const request = axios.get(`${baseUrl}/${roomId}`, config)
+  return request.then(response => response.data)
+}
+
 const getUsersRooms = () => {
   const request = axios.get('http://localhost:3001/api/users/room/subscribed', config)
   return request.then(response => response.data)
@@ -37,4 +42,4 @@ const createRoom = async (newObject) => {
   return request.then(response => response.data)
 }
 
-export default { getUsersRooms, createRoom, getRooms, subscribe, setToken }
+export default { getUsersRooms, createRoom, getRooms, getRoom, subscribe, setToken }

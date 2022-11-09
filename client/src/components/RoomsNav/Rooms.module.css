@@ -1,0 +1,46 @@
+/* 
+.sideMenu{
+  display: grid;
+  grid-column: 3 / 4;
+
+  background: #ccc;
+
+}
+
+
+
+li {
+    list-style-type: none;
+    padding: 1;
+    text-align: left;
+}
+.side-menu > li > a {
+  line-height: 45px;
+}
+
+@media (max-width: 600px) {
+    .side-menu, article {
+      width: 100%;
+      height: auto;
+    }
+  }   */
+
+.sideMenu{
+  width: 14rem;
+  height: cal(100vh -52px);
+  background: #ccc;
+}
+
+li {
+  list-style-type: none;
+  padding: 1;
+  text-align: left;
+}
+
+.title{
+  text-align: center;
+  color: black;
+}
+.side-menu > li > a {
+line-height: 45px;
+}

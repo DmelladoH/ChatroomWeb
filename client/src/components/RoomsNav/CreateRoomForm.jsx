@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styles from './CreateRoomForm.module.css'
 
 export default function CreateRoomForm ({ handleSubmit }) {
   const [name, setName] = useState('')
@@ -16,13 +17,14 @@ export default function CreateRoomForm ({ handleSubmit }) {
     <>
       <form onSubmit={onSubmit}>
         <input
+          className={styles.input}
           type='text'
           name='roomName'
           placeholder='room name'
           value={name}
           onChange={handleNameChange}
         />
-        <button>create</button>
+        <button className={styles.btn}>create</button>
       </form>
     </>
   )

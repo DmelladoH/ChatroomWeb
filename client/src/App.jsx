@@ -19,8 +19,12 @@ const PortectedRoutes = () => {
     ? (
       <>
         <TopNav />
-        <RoomsNav />
-        <Outlet />
+        <div style={{ display: 'flex' }}>
+          <RoomsNav />
+          <div style={{ width: '100%' }}>
+            <Outlet />
+          </div>
+        </div>
       </>
       )
     : <Navigate to='/login' replace state={{ from: location }} />

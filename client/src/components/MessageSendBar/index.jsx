@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './messageSendBar.css'
 
 export default function MessageSendBar ({ onSubmitMessage }) {
   const [message, setMessage] = useState('')
@@ -19,16 +20,15 @@ export default function MessageSendBar ({ onSubmitMessage }) {
   }
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input
-          type='text'
-          placeholder='Mensaje'
-          value={message}
-          onChange={handleMessageChange}
-        />
-        <button>Send</button>
-      </form>
-    </div>
+    <form className='form-container' onSubmit={onSubmit}>
+      <input
+        className='message-input'
+        type='text'
+        placeholder='Mensaje'
+        value={message}
+        onChange={handleMessageChange}
+      />
+      <button>Send</button>
+    </form>
   )
 }

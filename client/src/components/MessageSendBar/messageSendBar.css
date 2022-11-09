@@ -1,0 +1,10 @@
+.message-input{
+    height: 70px;
+    width: 90%;
+}
+
+.form-container{
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
